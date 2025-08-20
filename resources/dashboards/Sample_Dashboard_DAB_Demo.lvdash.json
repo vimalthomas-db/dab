@@ -53,6 +53,10 @@
                   },
                   "displayName": "Sum of total_revenue"
                 }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "New title added"
               }
             }
           },
