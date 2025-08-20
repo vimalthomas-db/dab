@@ -1,0 +1,80 @@
+{
+  "datasets": [
+    {
+      "name": "452e69c1",
+      "displayName": "Aggregated Order Information Overview",
+      "queryLines": [
+        "select * from vjs.demo_db.agg_orders"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "6b388a58",
+      "displayName": "Page1",
+      "layout": [
+        {
+          "widget": {
+            "name": "6a397cdc",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "452e69c1",
+                  "fields": [
+                    {
+                      "name": "avg_price",
+                      "expression": "`avg_price`"
+                    },
+                    {
+                      "name": "sum(total_revenue)",
+                      "expression": "SUM(`total_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "avg_price",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "avg_price"
+                },
+                "y": {
+                  "fieldName": "sum(total_revenue)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Sum of total_revenue"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "aa96ff7a",
+      "displayName": "Untitled page",
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}

@@ -11,10 +11,16 @@ include:
   - resources/jobs/*.yml
   - resources/pipelines/*.yml
   - resources/schemas/*.yml
+  - resources/dashboards/*.yml
+
+sync:
+  exclude:
+    - resources/dashboards/*.lvdash.json
 
 permissions:
   - group_name: de_group
     level: CAN_MANAGE
+
 
 
 targets:
@@ -27,4 +33,5 @@ targets:
   qa:
     default: false
     workspace:
-      host: https://e2-demo-field-eng.cloud.databricks.com/
+      host: https://e2-demo-fieldeng.cloud.databricks.com/
+
