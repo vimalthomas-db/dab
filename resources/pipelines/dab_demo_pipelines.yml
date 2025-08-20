@@ -1,0 +1,13 @@
+resources:
+  pipelines:
+    pipeline_dab_demo_pipelines:
+      name: dab_demo_pipelines
+      libraries:
+        - notebook:
+            path: ../notebooks/declarative_demo_notebook.sql
+      schema: ${resources.schemas.demo_db_schema.name}
+      development: true
+      photon: true
+      catalog: ${resources.schemas.demo_db_schema.catalog_name}
+      serverless: true
+      budget_policy_id: 8490eee4-5dd5-4d74-8173-9bd589cf89f2

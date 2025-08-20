@@ -1,0 +1,30 @@
+bundle:
+  name: DABDemo
+
+
+# resource:
+#   #resources would be placed here.
+
+include:
+  - src/*.yml
+  - src/env/*yml
+  - resources/jobs/*.yml
+  - resources/pipelines/*.yml
+  - resources/schemas/*.yml
+
+permissions:
+  - group_name: de_group
+    level: CAN_MANAGE
+
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace: 
+      host: https://e2-demo-field-eng.cloud.databricks.com/
+
+  qa:
+    default: false
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com/

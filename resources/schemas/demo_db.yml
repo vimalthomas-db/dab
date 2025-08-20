@@ -1,0 +1,5 @@
+resources:
+  schemas:
+    demo_db_schema:
+      name: demo_db
+      catalog_name: ${var.catalog}
