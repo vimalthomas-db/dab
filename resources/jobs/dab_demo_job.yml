@@ -12,13 +12,11 @@ resources:
         - job_cluster_key: Job_cluster
           new_cluster:
             spark_version: 16.4.x-scala2.12
-            aws_attributes:
+            azure_attributes:
+              availability: SPOT_WITH_FALLBACK         # use ON_DEMAND, SPOT, or SPOT_WITH_FALLBACK
               first_on_demand: 1
-              availability: SPOT_WITH_FALLBACK
-              zone_id: us-west-2a
-              spot_bid_price_percent: 100
-              ebs_volume_count: 0
-            node_type_id: rd-fleet.xlarge
+              spot_bid_max_price: -1                   # -1 means default market price
+            node_type_id: Standard_D4ds_v5             # update to preferred Azure VM type
             spark_env_vars:
               PYSPARK_PYTHON: /databricks/python3/bin/python3
             enable_elastic_disk: false
@@ -27,3 +25,4 @@ resources:
             num_workers: 8
       queue:
         enabled: true
+
