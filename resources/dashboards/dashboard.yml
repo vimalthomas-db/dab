@@ -3,4 +3,5 @@ resources:
     Sample_Dashboard_DAB_Demo:
       display_name: 'Sample_Dashboard_DAB_Demo'
       file_path: ../dashboards/Sample_Dashboard_DAB_Demo.lvdash.json
+      warehouse_id: 'ffe0c42f6749a629'
       
