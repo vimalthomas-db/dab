@@ -28,10 +28,10 @@ targets:
     mode: development
     default: true
     workspace: 
-      host: https://e2-demo-field-eng.cloud.databricks.com/
+      host: ${{ secrets.DATABRICKS_HOST }}
 
   qa:
     default: false
     workspace:
-      host: https://e2-demo-fieldeng.cloud.databricks.com/
+      host: 
 
