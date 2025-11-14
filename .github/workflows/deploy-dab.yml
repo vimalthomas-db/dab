@@ -4,7 +4,7 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  id-token: write  # Needed for OIDC
+  id-token: write
   contents: read
 
 jobs:
@@ -18,6 +18,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Check OIDC variables exist
+        run: |
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL length: ${#ACTIONS_ID_TOKEN_REQUEST_URL}"
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN length: ${#ACTIONS_ID_TOKEN_REQUEST_TOKEN}"
 
       - name: Set up Databricks CLI
         uses: databricks/setup-cli@main
