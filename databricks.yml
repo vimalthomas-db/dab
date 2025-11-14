@@ -28,8 +28,7 @@ targets:
     mode: development
     default: true
     workspace: 
-      host: ${{ secrets.DATABRICKS_HOST }}
-
+      host: https://adb-3053813127396191.11.azuredatabricks.net
   qa:
     default: false
     workspace:
