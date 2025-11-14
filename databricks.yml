@@ -18,10 +18,8 @@ sync:
     - resources/dashboards/*.lvdash.json
 
 permissions:
- 
-   
   - service_principal_name: vjs_sp_nwy
-      level: CAN_MANAGE
+  level: CAN_MANAGE
 
 
 
