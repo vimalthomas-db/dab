@@ -19,7 +19,7 @@ sync:
 
 permissions:
   - level: CAN_MANAGE
-    service_principal_name: vjs_sp_nwy
+    service_principal_name: 01936732-a01d-42be-8e00-e2859466b73a
   
 
 
