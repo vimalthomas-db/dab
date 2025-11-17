@@ -48,7 +48,7 @@ jobs:
 
       # Step 5: Verify current user (optional, for debugging)
       - name: Verify Databricks auth
-        run: databricks current-user get
+        run: databricks current-user me
 
       # Step 6: Deploy DAB bundle
       - name: Deploy DAB bundle
