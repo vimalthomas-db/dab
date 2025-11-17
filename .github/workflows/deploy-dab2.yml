@@ -1,4 +1,4 @@
-name: Deploy DAB with Databricks Azure OIDC
+name: Deploy DAB with Azure OIDC
 
 on:
   workflow_dispatch: {}
@@ -11,31 +11,38 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
+      # Databricks auth type for unified CLI
       DATABRICKS_AUTH_TYPE: oidc
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST2 }}
       DATABRICKS_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_SPB }}
       DATABRICKS_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
     steps:
+      # Step 1: Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Request OIDC token from GitHub
-        id: oidc
-        run: |
-          # Request the GitHub OIDC token
-          TOKEN=$(curl -H "Accept: application/json" \
-                       -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-                       "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=api://AzureADTokenExchange" | jq -r '.value')
-
-          echo "OIDC_TOKEN=${TOKEN}" >> $GITHUB_ENV
-
-      - name: Set GHA OIDC token for Databricks CLI
-        run: |
-          echo "DATABRICKS_AZURE_FEDERATED_TOKEN=${OIDC_TOKEN}" >> $GITHUB_ENV
-
+      # Step 2: Install Databricks CLI (latest with OIDC support)
       - name: Set up Databricks CLI
         uses: databricks/setup-cli@main
+        with:
+          version: 'latest'
 
+      # Step 3: Request GitHub OIDC token and exchange for Azure federated token
+      - name: Request Azure federated token
+        id: oidc
+        run: |
+          # Request GitHub-issued OIDC token
+          GITHUB_OIDC_TOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=api://AzureADTokenExchange" | jq -r '.value')
+
+          # Export federated token for Databricks CLI
+          echo "DATABRICKS_AZURE_FEDERATED_TOKEN=${GITHUB_OIDC_TOKEN}" >> $GITHUB_ENV
+
+      # Step 4: Verify current user (optional, for debugging)
+      - name: Verify Databricks auth
+        run: databricks current-user get
+
+      # Step 5: Deploy DAB bundle
       - name: Deploy DAB bundle
         run: databricks bundle deploy --target dev
