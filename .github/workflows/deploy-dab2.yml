@@ -13,7 +13,7 @@ jobs:
     env:
       # Databricks unified auth type for GitHub → Azure → Databricks
       DATABRICKS_AUTH_TYPE: github-oidc
-      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST2 }}
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_SPB }}
       DATABRICKS_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
