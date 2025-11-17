@@ -14,8 +14,8 @@ jobs:
       # Databricks unified auth type for GitHub → Azure → Databricks
       DATABRICKS_AUTH_TYPE: github-oidc
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-      DATABRICKS_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_SPB }}
-      DATABRICKS_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+     
 
     steps:
       # Step 1: Checkout repository
