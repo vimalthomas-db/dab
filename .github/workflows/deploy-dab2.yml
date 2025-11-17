@@ -11,19 +11,28 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
+      # Databricks unified auth type for GitHub → Azure → Databricks
       DATABRICKS_AUTH_TYPE: github-oidc
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST2 }}
       DATABRICKS_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_SPB }}
       DATABRICKS_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
     steps:
+      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Check OIDC variables exist
+      - name: Check OIDC variables
+        run: |
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL length: ${#ACTIONS_ID_TOKEN_REQUEST_URL}"
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN length: ${#ACTIONS_ID_TOKEN_REQUEST_TOKEN}"
+
+      # Step 3: Set up Databricks CLI
       - name: Set up Databricks CLI
         uses: databricks/setup-cli@main
-       
 
+      # Step 4: Request GitHub OIDC token and exchange for Azure federated token
       - name: Request Azure federated token
         id: oidc
         run: |
@@ -37,8 +46,10 @@ jobs:
 
           echo "DATABRICKS_AZURE_FEDERATED_TOKEN=${GITHUB_OIDC_TOKEN}" >> $GITHUB_ENV
 
+      # Step 5: Verify current user (optional, for debugging)
       - name: Verify Databricks auth
         run: databricks current-user get
 
+      # Step 6: Deploy DAB bundle
       - name: Deploy DAB bundle
         run: databricks bundle deploy --target dev
