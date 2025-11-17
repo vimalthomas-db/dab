@@ -11,7 +11,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      DATABRICKS_AUTH_TYPE: azure-oidc
+      DATABRICKS_AUTH_TYPE: oidc
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST2 }}
       DATABRICKS_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_SPB }}
       DATABRICKS_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
